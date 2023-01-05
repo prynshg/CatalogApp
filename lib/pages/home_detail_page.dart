@@ -12,7 +12,23 @@ class HomeDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: MyTheme.creamColor,
+      bottomNavigationBar: ButtonBar(
+        alignment: MainAxisAlignment.spaceBetween,
+        buttonPadding: EdgeInsets.zero,
+        children: [
+          "\$${catalog.price}".text.bold.xl4.make(),
+          ElevatedButton(
+              onPressed: (){},
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(MyTheme.darkBlueishColor),
+                shape: MaterialStateProperty.all(StadiumBorder()),
+              ),
+              child: "Buy".text.color(Colors.white).make()
+          ).wh(100,50)
+        ],
+      ).p32(),
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             Hero(
