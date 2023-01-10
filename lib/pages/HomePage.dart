@@ -5,13 +5,13 @@ import 'package:fluttertest/models/cart.dart';
 import 'package:fluttertest/models/catalog.dart';
 import 'package:fluttertest/utils/routes.dart';
 import 'dart:convert';
-import 'package:velocity_x/velocity_x.dart' as http;
 import 'package:velocity_x/velocity_x.dart';
 
 import '../core/store.dart';
 import '../widgets/home_widgets/catalog_header.dart';
 import '../widgets/home_widgets/catalog_list.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+
 
 class HomePage extends StatefulWidget {
 
@@ -27,12 +27,13 @@ class _HomePageState extends State<HomePage> {
     loadData();
   }
   loadData() async{
-    await Future.delayed(Duration(seconds: 2));
+    // await Future.delayed(Duration(seconds: 2));
     // final catalogJson = await rootBundle.loadString("assets/files/catalog.json");
-    final response = http.getView(Uri.parse(url));
-    final catalogJson = response.
+    final response = await http.get(Uri.parse(url));
+    final catalogJson = response.body;
 
     final decodedData=jsonDecode(catalogJson);
+    print(decodedData);
     var productsData=decodedData["products"];
     CatalogModel.items=List.from(productsData).map<Item>((item) => Item.fromMap(item)).toList();
     setState(() {});
