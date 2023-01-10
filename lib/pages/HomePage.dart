@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final url="https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
+  bool isLoadingData = true;
   @override
   void initState() {
     super.initState();
@@ -36,7 +37,9 @@ class _HomePageState extends State<HomePage> {
     print(decodedData);
     var productsData=decodedData["products"];
     CatalogModel.items=List.from(productsData).map<Item>((item) => Item.fromMap(item)).toList();
-    setState(() {});
+    setState(() {
+    isLoadingData = false;
+    });
   }
 
   @override
@@ -52,17 +55,16 @@ class _HomePageState extends State<HomePage> {
           child: Icon(CupertinoIcons.cart,color: Colors.white,),
         ).badge(color: Vx.red500,size:20,count:_cart.items.length,textStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
       ),
-      body: SafeArea(
+      body: (isLoadingData)
+            CircularProgressIndicator().centered().py16().expand() : 
+      SafeArea(
         child: Container(
           padding: Vx.m32,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CatalogHeader(),
-              if(CatalogModel.items!=null && CatalogModel.items.isNotEmpty)
-                CatalogList().py16().expand()
-              else
-                  CircularProgressIndicator().centered().py16().expand(),
+                CatalogList().py16().expand()    
             ],
           ),
         ),
