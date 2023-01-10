@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final url="https://api.jsonbin.io/b/604dbddb683e7e079c4eefd3";
+  final url="https://632017e19f82827dcf24a655.mockapi.io/api/programs";
   @override
   void initState() {
     super.initState();
